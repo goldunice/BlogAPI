@@ -5,6 +5,7 @@ from rest_framework.views import APIView
 from rest_framework import status
 from .serializers import *
 from .models import *
+from drf_yasg.utils import swagger_auto_schema
 
 
 class MaqolalarModleViewSet(ModelViewSet):
@@ -21,6 +22,7 @@ class MaqolalarAPI(APIView):
         serializer = MaqolaSerialzier(maqolalar, many=True)
         return Response(serializer.data, status.HTTP_200_OK)
 
+    @swagger_auto_schema(request_body=MaqolaSerialzier)
     def post(self, request):
         maqola = request.data
         serializer = MaqolaSerialzier(data=maqola)
